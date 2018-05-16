@@ -40,34 +40,31 @@ class MaxIntSet {
     }
 }
 //------ MaxIntSet test --------
-var a = new MaxIntSet(4)
-// below should be true
-// a.store == [ false, false, false, false ]
-console.log(a.store);
-// below should raise
-try {
-    b = new MaxIntSet("g");
-} catch (e) {
-    console.log(e);
-    console.log("string invocation raises");
-    try {
-        c = new MaxIntSet(-1)
-    } catch (e) {
-        console.log("negative invocation raises");
-        try {
-            a.insert(5);
-        } catch (e) {
-            console.log("5 is out of bounds");
-        }
-    }
-}
-a.insert(4);
-// should return true
-console.log(a.includes(4));
-console.log(a.store);
-
-
-
+// var a = new MaxIntSet(4)
+// // below should be true
+// // a.store == [ false, false, false, false ]
+// console.log(a.store);
+// // below should raise
+// try {
+//     b = new MaxIntSet("g");
+// } catch (e) {
+//     console.log(e);
+//     console.log("string invocation raises");
+//     try {
+//         c = new MaxIntSet(-1)
+//     } catch (e) {
+//         console.log("negative invocation raises");
+//         try {
+//             a.insert(5);
+//         } catch (e) {
+//             console.log("5 is out of bounds");
+//         }
+//     }
+// }
+// a.insert(4);
+// // should return true
+// console.log(a.includes(4));
+// console.log(a.store);
 
 const getNestedArray = (numBuckets) => {
     let result = [];
