@@ -118,14 +118,34 @@ class ResizingIntSet {
     }
 
     insert(num) {
-
+        this.count += 1;
+        // make sure that store length is bigger the count
+        console.log(this.count);
+        if (this.count === this.numBuckets()) {
+            // console.log("resizing reason");
+            // console.log(this.count);
+            // console.log(this.numBuckets());
+            // trigger resize
+            this.resize();
+        }
+        let bucketIndex = num % this.numBuckets();
+        this.store[bucketIndex].push(num);
     }
-    remove(num) {
 
+    remove(num) {
+        this.count -= 1;
+        let bucketIndex = num % this.numBuckets();
+        let bucketElInd = this.store[bucketIndex].indexOf(num)
+        if (bucketElInd > -1) {
+            this.store[bucketIndex].splice(bucketElInd,1);
+        } else {
+            console.log("element does not exist");
+        }
     }
 
     includes(num) {
-
+        let bucketIndex = num % this.numBuckets();
+        return (this.store[bucketIndex].includes(num));
     }
 
     numBuckets() {
@@ -133,6 +153,32 @@ class ResizingIntSet {
     }
 
     resize() {
-
+        let prevStore = [...this.store];
+        this.store = GET_NESTED_ARRAY(prevStore.length * 2);
+        for (var i = 0; i < prevStore.length; i++) {
+            var bucket = prevStore[i];
+            for (var j = 0; j < bucket.length; j++) {
+                var el = prevStore[i][j];
+                this.count = 0;
+                this.insert(el);
+            }
+        }
     }
 }
+
+// let a = new ResizingIntSet(2);
+// console.log(a.store);
+// a.insert(1);
+// console.log(a.store);
+// // this should trigger resize
+// a.insert(2);
+// console.log(a.store);
+// a.insert(3);
+// console.log(a.store);
+// a.remove(3);
+// console.log(a.store);
+// // should tell this num doesnt exist
+// a.remove(5);
+// console.log(a.includes(1));
+// a.insert(599172);
+// console.log(a.store);
