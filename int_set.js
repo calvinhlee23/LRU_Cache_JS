@@ -66,7 +66,7 @@ class MaxIntSet {
 // console.log(a.includes(4));
 // console.log(a.store);
 
-const getNestedArray = (numBuckets) => {
+const GET_NESTED_ARRAY = (numBuckets) => {
     let result = [];
     for (var i = 0; i < numBuckets; i++) {
         result.push([]);
@@ -76,25 +76,44 @@ const getNestedArray = (numBuckets) => {
 
 class IntSet {
     constructor(numBuckets=20) {
-        this.store = getNestedArray(numBuckets);
+        this.store = GET_NESTED_ARRAY(numBuckets);
     }
     insert(num) {
-
+        let bucketIndex = num % this.numBuckets();
+        this.store[bucketIndex].push(num);
     }
     remove(num) {
-
+        let bucketIndex = num % this.numBuckets();
+        let bucketElInd = this.store[bucketIndex].indexOf(num)
+        if (bucketElInd > -1) {
+            this.store[bucketIndex].splice(bucketElInd, 1);
+        }
     }
     includes(num) {
-
+        let bucketIndex = num % this.numBuckets();
+        let bucketElInd = this.store[bucketIndex].indexOf(num)
+        if (bucketElInd > -1) {
+            return true;
+        }
     }
     numBuckets() {
         return (this.store.length);
     }
 }
 
+// let a = new IntSet();
+// console.log(a.store);
+// a.insert(5);
+// console.log(a.store);
+// a.insert(10203);
+// console.log(a.store);
+// a.remove(5);
+// console.log(a.store);
+
+
 class ResizingIntSet {
     constructor(numBuckets=20) {
-        this.store = getNestedArray(numBuckets);
+        this.store = GET_NESTED_ARRAY(numBuckets);
         this.count = 0;
     }
 
